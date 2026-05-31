@@ -8,8 +8,8 @@
 </head>
 <body>
   <header class="topbar">
-    <button id="tocToggle" class="ghost-button mobile-only" aria-label="Open surah list">
-      ☰ Surahs
+    <button id="tocToggle" class="ghost-button choose-button mobile-only" aria-label="Open surah list">
+      ☰ Choose Surah
     </button>
 
     <div class="brand">
@@ -18,40 +18,42 @@
     </div>
 
     <div class="toolbar" aria-label="PDF controls">
-      <button id="prevSurahBtn" class="toolbar-button">← Surah</button>
-      <button id="nextSurahBtn" class="toolbar-button">Surah →</button>
+      <button id="prevSurahBtn" class="toolbar-button desktop-control">← Surah</button>
+      <button id="nextSurahBtn" class="toolbar-button desktop-control">Surah →</button>
 
-      <span class="divider"></span>
+      <span class="divider desktop-control"></span>
 
-      <button id="scrollModeBtn" class="toolbar-button active">Scroll</button>
-      <button id="singleModeBtn" class="toolbar-button">Single Page</button>
+      <button id="scrollModeBtn" class="toolbar-button desktop-control active">Scroll</button>
+      <button id="singleModeBtn" class="toolbar-button desktop-control">Single Page</button>
 
-      <span class="divider"></span>
+      <span class="divider desktop-control"></span>
 
-      <button id="prevBtn" class="toolbar-button">←</button>
+      <button id="prevBtn" class="toolbar-button">← Page</button>
       <label class="page-jump">
-        Page
+        <span class="page-label-text">Page</span>
         <input id="pageInput" type="number" min="1" value="1" />
         <span id="totalPages">/ —</span>
       </label>
-      <button id="nextBtn" class="toolbar-button">→</button>
+      <button id="nextBtn" class="toolbar-button">Page →</button>
 
-      <span class="divider"></span>
+      <span class="divider desktop-control"></span>
 
-      <button id="zoomOutBtn" class="toolbar-button">−</button>
-      <span id="zoomLabel" class="zoom-label">125%</span>
-      <button id="zoomInBtn" class="toolbar-button">+</button>
+      <button id="zoomOutBtn" class="toolbar-button desktop-control">−</button>
+      <span id="zoomLabel" class="zoom-label desktop-control">Fit</span>
+      <button id="zoomInBtn" class="toolbar-button desktop-control">+</button>
 
       <a id="downloadLink" class="download-link" href="#" download>Download</a>
     </div>
   </header>
+
+  <div id="overlay" class="overlay"></div>
 
   <div class="layout">
     <aside id="sidebar" class="sidebar">
       <div class="sidebar-header">
         <div>
           <h2>Surahs</h2>
-          <p>Click a surah to open its PDF.</p>
+          <p>Choose a surah to open its PDF.</p>
         </div>
         <button id="closeSidebar" class="ghost-button mobile-only" aria-label="Close surah list">×</button>
       </div>
@@ -60,12 +62,23 @@
     </aside>
 
     <main id="viewer" class="viewer">
+      <button id="chooseAnotherBtn" class="mobile-back-button mobile-only">
+        ← Choose another Surah
+      </button>
+
       <div id="status" class="status-card">
-        Select a surah from the left to begin.
+        Select a surah from the list to begin.
       </div>
+
       <section id="pdfContainer" class="pdf-container" aria-label="PDF pages"></section>
     </main>
   </div>
+
+  <nav class="mobile-bottom-nav mobile-only" aria-label="Mobile navigation">
+    <button id="mobilePrevSurahBtn" class="bottom-nav-button">← Surah</button>
+    <button id="mobileChooseBtn" class="bottom-nav-button primary">Surahs</button>
+    <button id="mobileNextSurahBtn" class="bottom-nav-button">Surah →</button>
+  </nav>
 
   <script type="module" src="script.js"></script>
 </body>

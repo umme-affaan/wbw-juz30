@@ -4,11 +4,13 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.5.207/build/pdf.worker.mjs";
 
 const SURAH_DATA_URL = "surahs.json";
+const MOBILE_QUERY = window.matchMedia("(max-width: 1000px)");
 
 const viewer = document.getElementById("viewer");
 const pdfContainer = document.getElementById("pdfContainer");
 const statusBox = document.getElementById("status");
 const surahList = document.getElementById("surahList");
+const overlay = document.getElementById("overlay");
 
 const currentSurahName = document.getElementById("currentSurahName");
 const scrollModeBtn = document.getElementById("scrollModeBtn");
@@ -17,6 +19,10 @@ const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const prevSurahBtn = document.getElementById("prevSurahBtn");
 const nextSurahBtn = document.getElementById("nextSurahBtn");
+const mobilePrevSurahBtn = document.getElementById("mobilePrevSurahBtn");
+const mobileNextSurahBtn = document.getElementById("mobileNextSurahBtn");
+const mobileChooseBtn = document.getElementById("mobileChooseBtn");
+const chooseAnotherBtn = document.getElementById("chooseAnotherBtn");
 const pageInput = document.getElementById("pageInput");
 const totalPages = document.getElementById("totalPages");
 const zoomOutBtn = document.getElementById("zoomOutBtn");
@@ -30,10 +36,22 @@ let surahs = [];
 let selectedSurahIndex = -1;
 let pdfDoc = null;
 let currentPage = 1;
-let scale = 1.25;
-let mode = "scroll";
+let scale = MOBILE_QUERY.matches ? 1 : 1.25;
+let mode = MOBILE_QUERY.matches ? "single" : "scroll";
 let observer = null;
 let renderToken = 0;
+
+function isMobile() {
+  return MOBILE_QUERY.matches;
+}
+
+function openSidebar() {
+  document.body.classList.add("sidebar-open");
+}
+
+function closeSidebarDrawer() {
+  document.body.classList.remove("sidebar-open");
+}
 
 function showStatus(message) {
   statusBox.innerHTML = message;
@@ -65,8 +83,13 @@ function updateControls() {
   scrollModeBtn.disabled = !hasPdf;
   singleModeBtn.disabled = !hasPdf;
 
-  prevSurahBtn.disabled = selectedSurahIndex <= 0;
-  nextSurahBtn.disabled = selectedSurahIndex < 0 || selectedSurahIndex >= surahs.length - 1;
+  const atFirstSurah = selectedSurahIndex <= 0;
+  const atLastSurah = selectedSurahIndex < 0 || selectedSurahIndex >= surahs.length - 1;
+
+  prevSurahBtn.disabled = atFirstSurah;
+  nextSurahBtn.disabled = atLastSurah;
+  mobilePrevSurahBtn.disabled = atFirstSurah;
+  mobileNextSurahBtn.disabled = atLastSurah;
 
   if (hasPdf) {
     pageInput.value = currentPage;
@@ -77,7 +100,7 @@ function updateControls() {
     totalPages.textContent = "/ —";
   }
 
-  zoomLabel.textContent = `${Math.round(scale * 100)}%`;
+  zoomLabel.textContent = isMobile() ? "Fit" : `${Math.round(scale * 100)}%`;
 
   scrollModeBtn.classList.toggle("active", mode === "scroll");
   singleModeBtn.classList.toggle("active", mode === "single");
@@ -113,7 +136,7 @@ function buildSurahList() {
 
     button.addEventListener("click", () => {
       loadSurah(index);
-      document.body.classList.remove("sidebar-open");
+      closeSidebarDrawer();
     });
 
     surahList.appendChild(button);
@@ -122,11 +145,24 @@ function buildSurahList() {
   updateControls();
 }
 
+async function calculateRenderScale(page) {
+  if (!isMobile()) {
+    return scale;
+  }
+
+  const unscaledViewport = page.getViewport({ scale: 1 });
+  const availableWidth = Math.max(viewer.clientWidth - 36, 260);
+  const fitScale = availableWidth / unscaledViewport.width;
+
+  return Math.min(Math.max(fitScale, 0.7), 2.2);
+}
+
 async function renderPdfPage(pageNumber, token) {
   const page = await pdfDoc.getPage(pageNumber);
   if (token !== renderToken) return null;
 
-  const viewport = page.getViewport({ scale });
+  const renderScale = await calculateRenderScale(page);
+  const viewport = page.getViewport({ scale: renderScale });
   const outputScale = window.devicePixelRatio || 1;
 
   const wrapper = document.createElement("article");
@@ -135,7 +171,7 @@ async function renderPdfPage(pageNumber, token) {
   wrapper.dataset.pageNumber = pageNumber;
 
   const label = document.createElement("div");
-  label.className = "page-label";
+  label.className = "pdf-page-label";
   label.textContent = `Page ${pageNumber}`;
 
   const canvas = document.createElement("canvas");
@@ -247,11 +283,15 @@ async function loadSurah(index) {
   pdfDoc = null;
   currentPage = 1;
 
+  if (isMobile()) {
+    mode = "single";
+  }
+
   if (observer) observer.disconnect();
   pdfContainer.innerHTML = "";
 
   updateControls();
-  showStatus(`Loading <strong>${surah.title}</strong>…`);
+  showStatus(`Opening <strong>${surah.title}</strong>…`);
 
   try {
     const loadingTask = pdfjsLib.getDocument(surah.file);
@@ -291,12 +331,24 @@ async function goToPage(pageNumber) {
 }
 
 async function changeZoom(amount) {
-  if (!pdfDoc) return;
+  if (!pdfDoc || isMobile()) return;
 
   scale = Math.min(Math.max(scale + amount, 0.7), 2.4);
   renderToken += 1;
   updateControls();
   await renderCurrentMode();
+}
+
+async function loadPreviousSurah() {
+  if (selectedSurahIndex > 0) {
+    await loadSurah(selectedSurahIndex - 1);
+  }
+}
+
+async function loadNextSurah() {
+  if (selectedSurahIndex < surahs.length - 1) {
+    await loadSurah(selectedSurahIndex + 1);
+  }
 }
 
 async function loadSurahData() {
@@ -331,13 +383,10 @@ singleModeBtn.addEventListener("click", async () => {
 prevBtn.addEventListener("click", () => goToPage(currentPage - 1));
 nextBtn.addEventListener("click", () => goToPage(currentPage + 1));
 
-prevSurahBtn.addEventListener("click", () => {
-  if (selectedSurahIndex > 0) loadSurah(selectedSurahIndex - 1);
-});
-
-nextSurahBtn.addEventListener("click", () => {
-  if (selectedSurahIndex < surahs.length - 1) loadSurah(selectedSurahIndex + 1);
-});
+prevSurahBtn.addEventListener("click", loadPreviousSurah);
+nextSurahBtn.addEventListener("click", loadNextSurah);
+mobilePrevSurahBtn.addEventListener("click", loadPreviousSurah);
+mobileNextSurahBtn.addEventListener("click", loadNextSurah);
 
 pageInput.addEventListener("change", () => {
   goToPage(pageInput.value);
@@ -346,20 +395,36 @@ pageInput.addEventListener("change", () => {
 zoomOutBtn.addEventListener("click", () => changeZoom(-0.15));
 zoomInBtn.addEventListener("click", () => changeZoom(0.15));
 
-tocToggle.addEventListener("click", () => {
-  document.body.classList.add("sidebar-open");
-});
-
-closeSidebar.addEventListener("click", () => {
-  document.body.classList.remove("sidebar-open");
-});
+tocToggle.addEventListener("click", openSidebar);
+mobileChooseBtn.addEventListener("click", openSidebar);
+chooseAnotherBtn.addEventListener("click", openSidebar);
+closeSidebar.addEventListener("click", closeSidebarDrawer);
+overlay.addEventListener("click", closeSidebarDrawer);
 
 document.addEventListener("keydown", (event) => {
   if (event.target.tagName === "INPUT") return;
 
   if (event.key === "ArrowLeft") goToPage(currentPage - 1);
   if (event.key === "ArrowRight") goToPage(currentPage + 1);
-  if (event.key === "Escape") document.body.classList.remove("sidebar-open");
+  if (event.key === "Escape") closeSidebarDrawer();
+});
+
+let resizeTimer = null;
+
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+
+  resizeTimer = setTimeout(async () => {
+    if (!pdfDoc) return;
+
+    if (isMobile()) {
+      mode = "single";
+    }
+
+    renderToken += 1;
+    updateControls();
+    await renderCurrentMode();
+  }, 250);
 });
 
 loadSurahData();
