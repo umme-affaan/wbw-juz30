@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juz 30 Surah Viewer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="tocToggle" class="ghost-button mobile-only" aria-label="Open surah list">
+      ☰ Surahs
+    </button>
+
+    <div class="brand">
+      <span class="brand-title">Juz 30</span>
+      <span id="currentSurahName" class="brand-subtitle">Select a surah</span>
+    </div>
+
+    <div class="toolbar" aria-label="PDF controls">
+      <button id="prevSurahBtn" class="toolbar-button">← Surah</button>
+      <button id="nextSurahBtn" class="toolbar-button">Surah →</button>
+
+      <span class="divider"></span>
+
+      <button id="scrollModeBtn" class="toolbar-button active">Scroll</button>
+      <button id="singleModeBtn" class="toolbar-button">Single Page</button>
+
+      <span class="divider"></span>
+
+      <button id="prevBtn" class="toolbar-button">←</button>
+      <label class="page-jump">
+        Page
+        <input id="pageInput" type="number" min="1" value="1" />
+        <span id="totalPages">/ —</span>
+      </label>
+      <button id="nextBtn" class="toolbar-button">→</button>
+
+      <span class="divider"></span>
+
+      <button id="zoomOutBtn" class="toolbar-button">−</button>
+      <span id="zoomLabel" class="zoom-label">125%</span>
+      <button id="zoomInBtn" class="toolbar-button">+</button>
+
+      <a id="downloadLink" class="download-link" href="#" download>Download</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div>
+          <h2>Surahs</h2>
+          <p>Click a surah to open its PDF.</p>
+        </div>
+        <button id="closeSidebar" class="ghost-button mobile-only" aria-label="Close surah list">×</button>
+      </div>
+
+      <nav id="surahList" class="surah-list" aria-label="Juz 30 surah list"></nav>
+    </aside>
+
+    <main id="viewer" class="viewer">
+      <div id="status" class="status-card">
+        Select a surah from the left to begin.
+      </div>
+      <section id="pdfContainer" class="pdf-container" aria-label="PDF pages"></section>
+    </main>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>

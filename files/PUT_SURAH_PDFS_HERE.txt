@@ -1,0 +1,8 @@
+Put each surah PDF in this folder.
+
+Use names like:
+078-an-naba.pdf
+079-an-naziat.pdf
+080-abasa.pdf
+
+The names must match surahs.json exactly.

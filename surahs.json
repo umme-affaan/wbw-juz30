@@ -1,0 +1,224 @@
+[
+  {
+    "number": 78,
+    "title": "An-Naba",
+    "arabic": "النبأ",
+    "file": "files/078-an-naba.pdf"
+  },
+  {
+    "number": 79,
+    "title": "An-Nazi'at",
+    "arabic": "النازعات",
+    "file": "files/079-an-naziat.pdf"
+  },
+  {
+    "number": 80,
+    "title": "'Abasa",
+    "arabic": "عبس",
+    "file": "files/080-abasa.pdf"
+  },
+  {
+    "number": 81,
+    "title": "At-Takwir",
+    "arabic": "التكوير",
+    "file": "files/081-at-takwir.pdf"
+  },
+  {
+    "number": 82,
+    "title": "Al-Infitar",
+    "arabic": "الإنفطار",
+    "file": "files/082-al-infitar.pdf"
+  },
+  {
+    "number": 83,
+    "title": "Al-Mutaffifin",
+    "arabic": "المطففين",
+    "file": "files/083-al-mutaffifin.pdf"
+  },
+  {
+    "number": 84,
+    "title": "Al-Inshiqaq",
+    "arabic": "الإنشقاق",
+    "file": "files/084-al-inshiqaq.pdf"
+  },
+  {
+    "number": 85,
+    "title": "Al-Buruj",
+    "arabic": "البروج",
+    "file": "files/085-al-buruj.pdf"
+  },
+  {
+    "number": 86,
+    "title": "At-Tariq",
+    "arabic": "الطارق",
+    "file": "files/086-at-tariq.pdf"
+  },
+  {
+    "number": 87,
+    "title": "Al-A'la",
+    "arabic": "الأعلى",
+    "file": "files/087-al-ala.pdf"
+  },
+  {
+    "number": 88,
+    "title": "Al-Ghashiyah",
+    "arabic": "الغاشية",
+    "file": "files/088-al-ghashiyah.pdf"
+  },
+  {
+    "number": 89,
+    "title": "Al-Fajr",
+    "arabic": "الفجر",
+    "file": "files/089-al-fajr.pdf"
+  },
+  {
+    "number": 90,
+    "title": "Al-Balad",
+    "arabic": "البلد",
+    "file": "files/090-al-balad.pdf"
+  },
+  {
+    "number": 91,
+    "title": "Ash-Shams",
+    "arabic": "الشمس",
+    "file": "files/091-ash-shams.pdf"
+  },
+  {
+    "number": 92,
+    "title": "Al-Layl",
+    "arabic": "الليل",
+    "file": "files/092-al-layl.pdf"
+  },
+  {
+    "number": 93,
+    "title": "Ad-Duhaa",
+    "arabic": "الضحى",
+    "file": "files/093-ad-duhaa.pdf"
+  },
+  {
+    "number": 94,
+    "title": "Ash-Sharh",
+    "arabic": "الشرح",
+    "file": "files/094-ash-sharh.pdf"
+  },
+  {
+    "number": 95,
+    "title": "At-Tin",
+    "arabic": "التين",
+    "file": "files/095-at-tin.pdf"
+  },
+  {
+    "number": 96,
+    "title": "Al-'Alaq",
+    "arabic": "العلق",
+    "file": "files/096-al-alaq.pdf"
+  },
+  {
+    "number": 97,
+    "title": "Al-Qadr",
+    "arabic": "القدر",
+    "file": "files/097-al-qadr.pdf"
+  },
+  {
+    "number": 98,
+    "title": "Al-Bayyinah",
+    "arabic": "البينة",
+    "file": "files/098-al-bayyinah.pdf"
+  },
+  {
+    "number": 99,
+    "title": "Az-Zalzalah",
+    "arabic": "الزلزلة",
+    "file": "files/099-az-zalzalah.pdf"
+  },
+  {
+    "number": 100,
+    "title": "Al-'Adiyat",
+    "arabic": "العاديات",
+    "file": "files/100-al-adiyat.pdf"
+  },
+  {
+    "number": 101,
+    "title": "Al-Qari'ah",
+    "arabic": "القارعة",
+    "file": "files/101-al-qariah.pdf"
+  },
+  {
+    "number": 102,
+    "title": "At-Takathur",
+    "arabic": "التكاثر",
+    "file": "files/102-at-takathur.pdf"
+  },
+  {
+    "number": 103,
+    "title": "Al-'Asr",
+    "arabic": "العصر",
+    "file": "files/103-al-asr.pdf"
+  },
+  {
+    "number": 104,
+    "title": "Al-Humazah",
+    "arabic": "الهمزة",
+    "file": "files/104-al-humazah.pdf"
+  },
+  {
+    "number": 105,
+    "title": "Al-Fil",
+    "arabic": "الفيل",
+    "file": "files/105-al-fil.pdf"
+  },
+  {
+    "number": 106,
+    "title": "Quraysh",
+    "arabic": "قريش",
+    "file": "files/106-quraysh.pdf"
+  },
+  {
+    "number": 107,
+    "title": "Al-Ma'un",
+    "arabic": "الماعون",
+    "file": "files/107-al-maun.pdf"
+  },
+  {
+    "number": 108,
+    "title": "Al-Kawthar",
+    "arabic": "الكوثر",
+    "file": "files/108-al-kawthar.pdf"
+  },
+  {
+    "number": 109,
+    "title": "Al-Kafirun",
+    "arabic": "الكافرون",
+    "file": "files/109-al-kafirun.pdf"
+  },
+  {
+    "number": 110,
+    "title": "An-Nasr",
+    "arabic": "النصر",
+    "file": "files/110-an-nasr.pdf"
+  },
+  {
+    "number": 111,
+    "title": "Al-Masad",
+    "arabic": "المسد",
+    "file": "files/111-al-masad.pdf"
+  },
+  {
+    "number": 112,
+    "title": "Al-Ikhlas",
+    "arabic": "الإخلاص",
+    "file": "files/112-al-ikhlas.pdf"
+  },
+  {
+    "number": 113,
+    "title": "Al-Falaq",
+    "arabic": "الفلق",
+    "file": "files/113-al-falaq.pdf"
+  },
+  {
+    "number": 114,
+    "title": "An-Nas",
+    "arabic": "الناس",
+    "file": "files/114-an-nas.pdf"
+  }
+]

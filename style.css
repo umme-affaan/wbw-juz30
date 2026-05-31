@@ -1,0 +1,366 @@
+:root {
+  --bg: #f8f5ef;
+  --panel: #fffdf8;
+  --panel-2: #f1eadf;
+  --text: #201b16;
+  --muted: #756b60;
+  --line: #ded3c5;
+  --accent: #806342;
+  --accent-dark: #60482d;
+  --shadow: 0 18px 45px rgba(45, 32, 20, 0.13);
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+.topbar {
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 18px;
+  background: rgba(255, 253, 248, 0.94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 10;
+}
+
+.brand {
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brand-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.brand-subtitle {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.toolbar {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.toolbar-button,
+.ghost-button,
+.download-link {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbar-button:hover,
+.ghost-button:hover,
+.download-link:hover {
+  border-color: var(--accent);
+}
+
+.toolbar-button.active,
+.download-link {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.toolbar-button.active:hover,
+.download-link:hover {
+  background: var(--accent-dark);
+}
+
+.toolbar-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.divider {
+  width: 1px;
+  height: 28px;
+  background: var(--line);
+  margin: 0 3px;
+}
+
+.page-jump {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.page-jump input {
+  width: 64px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 0 10px;
+  background: var(--panel);
+  color: var(--text);
+  text-align: center;
+  font: inherit;
+}
+
+.zoom-label {
+  min-width: 48px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.layout {
+  height: calc(100vh - 74px);
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+}
+
+.sidebar {
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  overflow: auto;
+  padding: 22px 16px;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.sidebar h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.sidebar p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.surah-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.surah-item {
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 10px 12px;
+  border-radius: 14px;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  line-height: 1.3;
+}
+
+.surah-item:hover {
+  background: var(--panel-2);
+}
+
+.surah-item.active {
+  background: #eadfce;
+  border-color: #d5c4ac;
+}
+
+.surah-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.surah-title {
+  display: block;
+  font-weight: 750;
+}
+
+.surah-number {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.surah-arabic {
+  display: block;
+  direction: rtl;
+  text-align: right;
+  color: var(--muted);
+  font-family: "Times New Roman", serif;
+  font-size: 1.05rem;
+  margin-top: 3px;
+}
+
+.viewer {
+  position: relative;
+  overflow: auto;
+  padding: 28px;
+  scroll-behavior: smooth;
+}
+
+.status-card {
+  max-width: 620px;
+  margin: 70px auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.pdf-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  padding-bottom: 60px;
+}
+
+.page-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+  max-width: 100%;
+}
+
+.page-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.page-card canvas {
+  display: block;
+  max-width: 100%;
+  height: auto !important;
+  border-radius: 10px;
+  background: white;
+}
+
+.mobile-only {
+  display: none;
+}
+
+body.sidebar-open .sidebar {
+  transform: translateX(0);
+}
+
+@media (max-width: 1000px) {
+  .topbar {
+    height: auto;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    min-width: auto;
+  }
+
+  .toolbar {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 3px;
+  }
+
+  .layout {
+    height: calc(100vh - 122px);
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    height: 100vh;
+    width: min(86vw, 350px);
+    transform: translateX(-105%);
+    transition: transform 180ms ease;
+    box-shadow: var(--shadow);
+  }
+
+  .viewer {
+    height: 100%;
+    padding: 18px 12px;
+  }
+
+  .mobile-only {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 560px) {
+  .toolbar-button,
+  .ghost-button,
+  .download-link {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .page-jump input {
+    width: 56px;
+  }
+
+  .pdf-container {
+    gap: 18px;
+  }
+
+  .page-card {
+    padding: 8px;
+    border-radius: 14px;
+  }
+}
